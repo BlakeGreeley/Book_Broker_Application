@@ -194,24 +194,6 @@ public class HomeController {
 		return "bookmarket.jsp";
 	}
 	
-	@GetMapping("/bookmarket")
-	public String bookmarket(HttpSession session, Model model) {
-		Long userId = (Long) session.getAttribute("userId");
-		if(userId == null) {
-			return "redirect:/logout";
-		}
-		
-		model.addAttribute("user", userServ.findById(userId));
-		
-		List<Book> books = bookServ.unborrowedBooks(userServ.findById(userId));
-		model.addAttribute("books", books);
-		
-		List<Book> myBooks = bookServ.borrowedBooks(userServ.findById(userId));
-		model.addAttribute("myBooks", myBooks);
-		
-		return "bookmarket.jsp";
-	}
-	
 	@RequestMapping("/bookmarket/{bookID}")
 	public String borrowBook(@PathVariable("bookID") Long bookID, HttpSession session) {
 	 
